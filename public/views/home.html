@@ -1,0 +1,16 @@
+<div class="page-header page-heading">
+  <h1 class="pull-left">Node Force</h1>
+  <div class="clearfix"></div>
+</div>
+<div ng-show="error" class="alert alert-warning alert-dismissible row" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <strong>Sorry</strong> {{error.message}}
+</div>
+<br />
+<div class="row">
+  <button ng-click="getAccounts()" class="btn btn-default">Get Accounts</button>
+</div>
+<br/>
+<ul>
+  <li ng-repeat="acc in accounts">{{acc.Name}}</li>
+</ul>

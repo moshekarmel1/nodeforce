@@ -3,6 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "body-parser": "^1.14.2",
+    "cookie-parser": "^1.4.0",
     "ejs": "^2.3.4",
     "express": "~4.13.1",
     "express-session": "^1.12.1",
