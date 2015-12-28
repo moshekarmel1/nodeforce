@@ -10,5 +10,17 @@ app.factory('force', ['$http','$window', function($http, $window){
         });
     };
 
+    o.get = function(id) {
+        return $http.get('/validate/' + id).then(function(res){
+            return res.data;
+        });
+    };
+
+    o.logout = function(){
+    	return $http.get('/logout').success(function(data){
+            console.log(data);
+        });	
+    };
+
     return o;
 }]);

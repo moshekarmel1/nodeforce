@@ -1,5 +1,5 @@
 var app = angular.module('node-force');
-app.controller('MainCtrl', ['$scope', '$window', 'force',function($scope, $window, force){
+app.controller('MainCtrl', ['$scope', 'force', function($scope, force){
     $scope.hello = 'Hello World';
 
     $scope.getAccounts = function(){

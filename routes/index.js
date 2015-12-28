@@ -24,6 +24,15 @@ router.get('/', function(req, res){
 		res.render('index', { title: 'Salesforce.com Node.js REST Demo' })
 	}
 });
+//logout
+router.get('/logout', function(req, res){
+    var conn = new jsforce.Connection({oauth2: oauth2});
+    conn.logout(function(err) {
+      if (err) { return console.error(err); }
+      // now the session has been expired.
+      res.redirect('/');
+    });
+});
 
 /* SF OAuth request, redirect to SF login */
 router.get('/oauth/auth', function(req, res) {
@@ -64,6 +73,60 @@ router.get('/accounts', function(req, res) {
         }
         res.json(result);
     });
+});
+
+router.get('/validate/:id', function(req, res) {
+    // if auth has not been set, redirect to index
+    if (!req.session.accessToken || !req.session.instanceUrl) { 
+        res.redirect('/'); 
+    }
+    var id = req.params.id;
+    // open connection with client's stored OAuth details
+    var conn = new jsforce.Connection({
+        accessToken: req.session.accessToken,
+        instanceUrl: req.session.instanceUrl
+    });
+    var resObj = {};
+    conn.sobject("Opportunity")
+        .select("Id, Name, Record_Type_Name__c")
+        .where("Id= '" + id + "'")
+        .execute(function(err, records){
+            if (err) {
+                console.error(err);
+                res.redirect('/');
+            }
+            resObj['Opportunity'] = records[0];
+            conn.sobject("Intake_Queue__c")
+                .select("*")
+                .where("Opportunity__c= '" + id + "'")
+                .execute(function(err, records2){
+                    if (err) {
+                        console.error(err);
+                        res.redirect('/');
+                    }
+                    resObj['IQs'] = records2;
+                    conn.sobject("Tenor__c")
+                        .select("*")
+                        .where("Opportunity__c= '" + id + "'")
+                        .execute(function(err, records3){
+                            if (err) {
+                                console.error(err);
+                                res.redirect('/');
+                            }
+                            resObj['Tenors'] = records3;
+                            res.json(resObj);
+                        });
+                });
+        });
+
+
+    /*conn.query(query, function(err, result) {
+        if (err) {
+            console.error(err);
+            res.redirect('/');
+        }
+        res.json(result);
+    });*/
 });
 
 module.exports = router;

@@ -4,12 +4,17 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
     .state('home', {
         url: '/home',
         templateUrl: '/views/home.html',
-        controller: 'MainCtrl'/*,
+        controller: 'MainCtrl'
+    })
+    .state('validate', {
+        url: '/validate/{id}',
+        templateUrl: '/views/validate.html',
+        controller: 'ValidateCtrl',
         resolve: {
-            postPromise: ['urls', function(urls){
-                return urls.getAll();
+            opp: ['$stateParams', 'force', function($stateParams, force) {
+                return force.get($stateParams.id);
             }]
-        }*/
-    });
+        }
+    })
     $urlRouterProvider.otherwise('home');
 }])

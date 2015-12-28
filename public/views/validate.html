@@ -1,0 +1,29 @@
+<div class="page-header page-heading">
+  <h1 class="pull-left">{{opp.Name}}</h1>
+  <div class="clearfix"></div>
+</div>
+<div ng-show="error" class="alert alert-warning alert-dismissible row" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <strong>Sorry</strong> {{error.message}}
+</div>
+<br />
+<div class="row">
+	<div class="col-md-4">
+		<div>{{opp.Record_Type_Name__c}}</div>
+		<ul>
+		  <li ng-repeat="(key, value) in opp" ng-show="value"><b>{{key}}</b>:{{value}}</li>
+	    </ul>		
+	</div>
+  	<div class="col-md-4">
+		<div>{{IQs.length}}:{{IQs[0].Name}}</div>
+		<ul>
+		  <li ng-repeat="(key, value) in IQs[0]" ng-show="value"><b>{{key}}</b>:{{value}}</li>
+	    </ul>		
+	</div>
+	<div class="col-md-4">
+		<div>{{Tenors.length}}:{{Tenors[0].Name}}</div>
+		<ul>
+		  <li ng-repeat="(key, value) in Tenors[0]" ng-show="value"><b>{{key}}</b>:{{value}}</li>
+	    </ul>		
+	</div>
+</div>
