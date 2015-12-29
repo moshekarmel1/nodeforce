@@ -38,13 +38,13 @@ app.use(function(req, res, next) {
 });
 // development error handler
 // will print stacktrace
-/*app.use(function(err, req, res, next) {
+app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
         message: err.message,
         error: err
     });
-});*/
+});
 
 app.listen(port, function(){
   console.log("Express server listening on port %d in %s mode", port, app.settings.env);
