@@ -97,7 +97,7 @@ router.get('/validate/:id', function(req, res) {
             }
             resObj['Opportunity'] = records[0];
             conn.sobject("Intake_Queue__c")
-                .select("*")
+                .select("*, LDC__r.Name, Commodity__r.Name, LDC__r.LDC_LDC__c")
                 .where("Opportunity__c= '" + id + "'")
                 .execute(function(err, records2){
                     if (err) {
@@ -106,7 +106,7 @@ router.get('/validate/:id', function(req, res) {
                     }
                     resObj['IQs'] = records2;
                     conn.sobject("Tenor__c")
-                        .select("*")
+                        .select("*, Pricing_Product__r.Name")
                         .where("Opportunity__c= '" + id + "'")
                         .execute(function(err, records3){
                             if (err) {
@@ -114,19 +114,22 @@ router.get('/validate/:id', function(req, res) {
                                 res.redirect('/');
                             }
                             resObj['Tenors'] = records3;
+                            resObj['ErrorCriteria'] = [
+                                {
+                                    name: "PPL Rule", 
+                                    criteria: "iq.LDC__r.Name == 'PPL' && iq.Utility_Account_Type__c == 'Residential' && tenor.Bill_Type__c == 'Single Bill'", 
+                                    criteriaMet: false
+                                },
+                                {
+                                    name: "EL Indexed Rule", 
+                                    criteria: "iq.Commodity__r.Name == 'Electricity' && iq.LDC__r.LDC_LDC__c > 0 && tenor.Pricing_Product__r.Name == 'LBMP+' && tenor.Bill_Type__c == 'Single Bill'",
+                                    criteriaMet: false
+                                }
+                            ];
                             res.json(resObj);
                         });
                 });
         });
-
-
-    /*conn.query(query, function(err, result) {
-        if (err) {
-            console.error(err);
-            res.redirect('/');
-        }
-        res.json(result);
-    });*/
 });
 
 module.exports = router;

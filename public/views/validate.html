@@ -6,24 +6,32 @@
   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   <strong>Sorry</strong> {{error.message}}
 </div>
-<br />
 <div class="row">
 	<div class="col-md-4">
-		<div>{{opp.Record_Type_Name__c}}</div>
-		<ul>
-		  <li ng-repeat="(key, value) in opp" ng-show="value"><b>{{key}}</b>:{{value}}</li>
-	    </ul>		
+		<div>Record Type : {{opp.Record_Type_Name__c}}</div>		
 	</div>
   	<div class="col-md-4">
-		<div>{{IQs.length}}:{{IQs[0].Name}}</div>
-		<ul>
-		  <li ng-repeat="(key, value) in IQs[0]" ng-show="value"><b>{{key}}</b>:{{value}}</li>
-	    </ul>		
+		<div>{{IQs.length}} Intake Queue(s)</div>	
 	</div>
 	<div class="col-md-4">
-		<div>{{Tenors.length}}:{{Tenors[0].Name}}</div>
-		<ul>
-		  <li ng-repeat="(key, value) in Tenors[0]" ng-show="value"><b>{{key}}</b>:{{value}}</li>
-	    </ul>		
+		<div>{{Tenors.length}} Tenor(s)</div>		
 	</div>
 </div>
+<br />
+<div class="row">
+	<table class="table">
+	  <thead>
+	  	<tr>
+	  		<th>Name</th>
+	  		<th>Error Criteria</th>
+	  		<th></th>
+	  	</tr>
+	  </thead>
+	  <tr ng-repeat="err in errorCriteria" ng-class="{success: !err.criteriaMet, danger: err.criteriaMet}">
+	    <td>{{err.name}}</td>
+	    <td>{{err.criteria}}</td>
+	    <td><span ng-class="{'glyphicon glyphicon-ok': !err.criteriaMet, 'glyphicon glyphicon-remove': err.criteriaMet}"></span></td>
+	  </tr>
+	</table>
+</div>
+
