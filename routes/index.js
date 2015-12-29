@@ -6,13 +6,13 @@ var port = process.env.PORT || 3001; // use heroku's dynamic port or 3001 if loc
 var cid = process.env.CLIENT_ID;
 var csecr = process.env.CLIENT_SECRET;
 var lserv = process.env.LOGIN_SERVER || "https://test.salesforce.com";
-var redir = process.env.REDIRECT_URI || "http://localhost:" + port + "/token";
+var redir = process.env.REDIRECT_URI || "http://localhost:" + port + "/oauth/callback";
 // Salesforce OAuth2 client information
 var oauth2 = new jsforce.OAuth2({
 	loginUrl : 'https://test.salesforce.com',
     clientId: cid,
     clientSecret: csecr,
-    redirectUri: 'http://localhost:3000/oauth/callback'
+    redirectUri: redir
 });
 /*
  * GET home page.
