@@ -14,6 +14,20 @@ var oauth2 = new jsforce.OAuth2({
     clientSecret: csecr,
     redirectUri: redir
 });
+//validation function
+function validate(obj){
+    var opp = obj.Opportunity;
+    obj.IQs.forEach(function(iq){
+        obj.Tenors.forEach(function(tenor){
+            obj.ErrorCriteria.forEach(function(errCriteria){
+                if(eval(errCriteria.criteria)){
+                    errCriteria.criteriaMet = true;
+                }
+            });
+        });
+    });
+    return obj;
+}
 /*
  * GET home page.
  */
@@ -131,7 +145,8 @@ router.get('/validate/:id', function(req, res) {
                                     criteriaMet: false
                                 }
                             ];
-                            res.json(resObj);
+                            var obj = validate(resObj);
+                            res.json(obj);
                         });
                 });
         });
