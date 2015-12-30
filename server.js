@@ -47,10 +47,10 @@ app.use(function(err, req, res, next) {
     });
 });
 //set up https
- https.createServer({
+/*https.createServer({
   key: fs.readFileSync('key.pem'),
   cert: fs.readFileSync('cert.pem')
-}, app).listen(port);
-/*app.listen(port, function(){
+}, app).listen(port);*/
+app.listen(port, function(){
   console.log("Express server listening on port %d in %s mode", port, app.settings.env);
-});*/
+});
