@@ -1,6 +1,7 @@
 var express = require('express'),
 	routes = require('./routes'),
 	jsforce = require('jsforce'),
+    https = require('https'),
 	url = require('url');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
@@ -9,7 +10,7 @@ var routes = require('./routes/index');
 /**
  * Setup some environment variables (heroku) with defaults if not present
  */
-var port = process.env.PORT || 3001; // use heroku's dynamic port or 3001 if localhost
+var port = process.env.PORT || 3000; // use heroku's dynamic port or 3000 if localhost
 var csecr = process.env.CLIENT_SECRET;
 /**
  * Create the server
@@ -45,7 +46,11 @@ app.use(function(err, req, res, next) {
         error: err
     });
 });
-
-app.listen(port, function(){
+//set up https
+ https.createServer({
+  key: fs.readFileSync('key.pem'),
+  cert: fs.readFileSync('cert.pem')
+}, app).listen(port);
+/*app.listen(port, function(){
   console.log("Express server listening on port %d in %s mode", port, app.settings.env);
-});
+});*/

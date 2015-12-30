@@ -124,6 +124,11 @@ router.get('/validate/:id', function(req, res) {
                                     name: "EL Indexed Rule", 
                                     criteria: "iq.Commodity__r.Name == 'Electricity' && iq.LDC__r.LDC_LDC__c > 0 && tenor.Pricing_Product__r.Name == 'LBMP+' && tenor.Bill_Type__c == 'Single Bill'",
                                     criteriaMet: false
+                                },
+                                {
+                                    name: "No Resi", 
+                                    criteria: "iq.Utility_Account_Type__c == 'Residential'",
+                                    criteriaMet: false
                                 }
                             ];
                             res.json(resObj);
