@@ -28,9 +28,13 @@
             <a class="navbar-brand" href="#/home"><span class="glyphicon glyphicon-home"></span> NodeForce</a>
           </div>
           <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-left">
+              <li class="active"><a href="/#/home"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+              <li><a href="/#/validate/006a000001D53mZ"><span class="glyphicon glyphicon-ok"></span> Validate</a></li>
+            </ul>
             <ul class="nav navbar-nav navbar-right">
               <li><a><span class="glyphicon glyphicon-user"></span> Authorized User</a></li>
-              <li><a ng-click="logout()"><span class="glyphicon glyphicon-user"></span> Log Out</a></li>
+              <li><a href="/#/logout"><span class="glyphicon glyphicon-user"></span> Log Out</a></li>
             </ul>
            </div> 
           </div><!--/.nav-collapse -->
@@ -54,6 +58,7 @@
     <script src="/js/factories/force.js"></script>
     <script src="/js/controllers/nav.js"></script>
     <script src="/js/controllers/validate.js"></script>
+    <script src="/js/controllers/logout.js"></script>
     <script src="/js/controllers/main.js"></script>
 
     <!-- jQuery -->

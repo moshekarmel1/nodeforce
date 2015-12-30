@@ -6,6 +6,16 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
         templateUrl: '/views/home.html',
         controller: 'MainCtrl'
     })
+    .state('logout', {
+        url: '/logout',
+        templateUrl: '/views/logout.html',
+        controller: 'LogoutCtrl',
+        resolve:{
+            out: ['force', function(force){
+                return force.logout();
+            }]
+        }
+    })
     .state('validate', {
         url: '/validate/{id}',
         templateUrl: '/views/validate.html',

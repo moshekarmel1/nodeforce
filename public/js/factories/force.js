@@ -17,8 +17,8 @@ app.factory('force', ['$http','$window', function($http, $window){
     };
 
     o.logout = function(){
-    	return $http.get('/logout').success(function(data){
-            console.log(data);
+    	return $http.get('/logout').then(function(data){
+            return data;
         });	
     };
 

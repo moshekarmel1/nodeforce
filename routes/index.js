@@ -40,7 +40,10 @@ router.get('/', function(req, res){
 });
 //logout
 router.get('/logout', function(req, res){
-    var conn = new jsforce.Connection({oauth2: oauth2});
+    var conn = new jsforce.Connection({
+        sessionId : req.session.accessToken,
+        serverUrl : req.session.instanceUrl
+    });
     conn.logout(function(err) {
       if (err) { return console.error(err); }
       // now the session has been expired.
