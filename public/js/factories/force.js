@@ -10,9 +10,8 @@ app.factory('force', ['$http','$window', function($http, $window){
         });
     };
 
-    o.getUtilityAccount = function(num) {
-        return $http.get('/accounts/' + num).then(function(res){
-            console.log(res);
+    o.getAccount = function(id) {
+        return $http.get('/accounts/' + id).then(function(res){
             return res.data;
         });
     };

@@ -1,5 +1,5 @@
 <div class="page-header page-heading">
-  <h1 class="pull-left">Node Force</h1>
+  <h1 class="pull-left">Plymouth Portal</h1>
   <div class="clearfix"></div>
 </div>
 <div ng-show="error" class="alert alert-warning alert-dismissible row" role="alert">
@@ -9,24 +9,51 @@
 <br />
 <div class="row">
 	<div class="col-md-4">
-		<label>Enter your Utility Account Number</label>
-		<input type="text" ng-model="uaNum" class="form-control" />
+		<label>Enter your Account Id</label>
+		<input type="text" ng-model="accId" class="form-control" />
 		<br />
-		<button ng-click="getUtilityAccount()" class="btn btn-default">Get My Account!</button>
+		<button ng-click="getAccount()" class="btn btn-default">Get My Account!</button>
 	</div>
 </div>
-<br/>
-<div ng-show="ua" class="row">
+<hr/>
+<div ng-show="acc" class="row">
 	<div class="col-md-4">
-		<span>Welcome {{ua.Name}}</span>
-		<h3>Your balance is {{ua.Utility_Account_Outstanding_Balance__c | currency}}
+		<h4>Welcome {{acc.Name}}</h4>
+		<span>How are things at <br />
+			{{acc.BillingAddress.street}} <br/>
+			{{acc.BillingAddress.city}}, {{acc.BillingAddress.state}} {{acc.BillingAddress.postalCode}}?
+		</span>
+		<h4 ng-if="acc.totalBal > 0">I hate to break it to you,<br/> but you owe us {{acc.totalBal | currency}}.</h4>
+		<h4 ng-if="acc.totalBal == 0">Great news, you don't owe us anything.</h4>
 	</div>
+	<div class="col-md-8">
+    <table class="table table-striped">
+        <thead>
+	        <tr>
+	          <th>Name</th>
+	          <th>Balance</th>
+	          <th>Acc Number</th>
+	          <th>Utility</th>
+          </tr>
+        </thead>
+      <tbody>
+        <tr ng-repeat="ua in uas">
+          <td><a href="4AXB" target="_top">{{ua.Name}}</a></td>
+          <td>{{ua.Utility_Account_Outstanding_Balance__c | currency}}</td>
+          <td>{{ua.Utility_Account_Number__c}}</td>
+          <td>{{ua.LDC__r.Name}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
 </div>
+
 
 
 
 <br/>
 <button ng-hide="true" ng-click="getAccounts()" class="btn btn-default"></button>
 <ul ng-hide="true">
-  <li ng-repeat="acc in accounts">{{acc.Name}}</li>
+  <li ng-repeat="ac in accounts">{{ac.Name}}</li>
 </ul>

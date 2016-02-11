@@ -7,16 +7,22 @@ app.controller('MainCtrl', ['$scope', 'force', function($scope, force){
         });
     };
 
-    $scope.getUtilityAccount = function(){
-    	var num = $scope.uaNum.trim();
-    	if(!num || num === '') return;
+    $scope.getAccount = function(){
+    	var id = $scope.accId.trim();
+    	if(!id || id === '') return;
 
-    	force.getUtilityAccount(num).then(function(res){
-    		if(res.length > 0){
-    			$scope.ua = res[0];
+    	force.getAccount(id).then(function(res){
+    		if(res){
+    			console.log(res.acc.BillingAddress);
+    			$scope.acc = res.acc;
+    			$scope.uas = res.uas;
+    			//calculate total balance
+    			$scope.acc.totalBal = res.uas.reduce(function(sum, ua){
+    				return sum + ua.Utility_Account_Outstanding_Balance__c || 0;
+    			}, 0);
     		}else{
     			$scope.error = {
-    				message: "Um, we couldn't find anyone with that number... "
+    				message: "Um, we couldn't find anyone with that Id... "
     			};
     		}
 

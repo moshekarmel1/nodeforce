@@ -92,26 +92,40 @@ router.get('/accounts', function(req, res) {
     });
 });
 
-router.get('/accounts/:num', function(req, res) {
+router.get('/accounts/:id', function(req, res) {
     // if auth has not been set, redirect to index
     if (!req.session.accessToken || !req.session.instanceUrl) { 
         res.redirect('/'); 
     }
-    var num = req.params.num;
+    var id = req.params.id;
     // open connection with client's stored OAuth details
     var conn = new jsforce.Connection({
         accessToken: req.session.accessToken,
         instanceUrl: req.session.instanceUrl
     });
-    conn.sobject("Utility_Account__c")
-    .select("Id, Name, Utility_Account_Number__c, Utility_Account_Outstanding_Balance__c")
-    .where("Utility_Account_Number__c= '" + num + "'")
+    var resObj = {};//response object to hold Acc and UA
+    conn.sobject("Account")
+    .select("Id, Name, BillingAddress")
+    .where("Id= '" + id + "'")
     .execute(function(err, records){
-        if (err) {
-            console.error(err);
+        if (err || records.length == 0) {
+            console.error(
+                err || {message : "not found"}
+            );
             res.redirect('/');
         }
-        res.json(records);
+        resObj['acc'] = records[0];
+        conn.sobject("Utility_Account__c")
+        .select("*, LDC__r.Name")
+        .where("Account_Name__c= '" + records[0].Id + "'")
+        .execute(function(err, records2){
+            if (err) {
+                console.error(err);
+                res.redirect('/');
+            }
+            resObj['uas'] = records2;
+            res.json(resObj);
+        });
     });
 });
 
