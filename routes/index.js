@@ -92,6 +92,29 @@ router.get('/accounts', function(req, res) {
     });
 });
 
+router.get('/accounts/:num', function(req, res) {
+    // if auth has not been set, redirect to index
+    if (!req.session.accessToken || !req.session.instanceUrl) { 
+        res.redirect('/'); 
+    }
+    var num = req.params.num;
+    // open connection with client's stored OAuth details
+    var conn = new jsforce.Connection({
+        accessToken: req.session.accessToken,
+        instanceUrl: req.session.instanceUrl
+    });
+    conn.sobject("Utility_Account__c")
+    .select("Id, Name, Utility_Account_Number__c, Utility_Account_Outstanding_Balance__c")
+    .where("Utility_Account_Number__c= '" + num + "'")
+    .execute(function(err, records){
+        if (err) {
+            console.error(err);
+            res.redirect('/');
+        }
+        res.json(records);
+    });
+});
+
 router.get('/validate/:id', function(req, res) {
     // if auth has not been set, redirect to index
     if (!req.session.accessToken || !req.session.instanceUrl) { 

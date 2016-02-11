@@ -8,9 +8,25 @@
 </div>
 <br />
 <div class="row">
-  <button ng-click="getAccounts()" class="btn btn-default">Get Accounts</button>
+	<div class="col-md-4">
+		<label>Enter your Utility Account Number</label>
+		<input type="text" ng-model="uaNum" class="form-control" />
+		<br />
+		<button ng-click="getUtilityAccount()" class="btn btn-default">Get My Account!</button>
+	</div>
 </div>
 <br/>
-<ul>
+<div ng-show="ua" class="row">
+	<div class="col-md-4">
+		<span>Welcome {{ua.Name}}</span>
+		<h3>Your balance is {{ua.Utility_Account_Outstanding_Balance__c | currency}}
+	</div>
+</div>
+
+
+
+<br/>
+<button ng-hide="true" ng-click="getAccounts()" class="btn btn-default"></button>
+<ul ng-hide="true">
   <li ng-repeat="acc in accounts">{{acc.Name}}</li>
 </ul>

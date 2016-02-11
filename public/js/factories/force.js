@@ -10,6 +10,13 @@ app.factory('force', ['$http','$window', function($http, $window){
         });
     };
 
+    o.getUtilityAccount = function(num) {
+        return $http.get('/accounts/' + num).then(function(res){
+            console.log(res);
+            return res.data;
+        });
+    };
+
     o.get = function(id) {
         return $http.get('/validate/' + id).then(function(res){
             return res.data;
