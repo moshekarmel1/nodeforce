@@ -13,6 +13,18 @@ app.controller('UACtrl', ['$scope', 'force', 'actualUA', function($scope, force,
 			$scope.invoices = res;
 		});
 	};
+
+	$scope.saveUtilityAccount = function(){
+		force.saveUtilityAccount($scope.actualUA).then(function(res){
+			if(res.success){
+				$scope.editing = false;
+			}else{
+				$scope.error = {
+					message: "Something went wrong during the update..."
+				};
+			}
+		});
+	};
 }]);
 
 

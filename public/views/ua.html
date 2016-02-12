@@ -16,10 +16,24 @@
           	<span ng-if="actualUA.Commodity__r.Name == 'Gas'" class="glyphicon glyphicon-fire"></span>
           	#{{actualUA.Utility_Account_Number__c}}
 		</h4>
-		<span>We have your Service Address as <br />
-			{{actualUA.Billing_Address_Street__c}} <br/>
-			{{actualUA.Billing_Address_City__c}}, {{actualUA.Billing_Address_State__c}} {{actualUA.Billing_Address_Postal_Code__c}}<br/>
-			If that is not correct, click <a href="mailto:gbarbera@plymouthenergy.com?subject=Hey Gerry, what's the deal?">here</a>
+		  <form ng-show="editing">
+		    <label>Street:</label>
+		    <input type="text" class="form-control" ng-model="actualUA.Mailing_Address_Street__c" placeholder="actualUA.Mailing_Address_Street__c" ng-required/>
+		    <label>City:</label>
+		    <input type="text" class="form-control" ng-model="actualUA.Mailing_Address_City__c" placeholder="actualUA.Mailing_Address_City__c" ng-required/>
+		    <label>State:</label>
+		    <input type="text" class="form-control" ng-model="actualUA.Mailing_Address_State__c" placeholder="actualUA.Mailing_Address_State__c" ng-required/>
+		    <label>Zip:</label>
+		    <input type="text" class="form-control" ng-model="actualUA.Mailing_Address_Postal_Code__c" placeholder="actualUA.Mailing_Address_Postal_Code__c" ng-required/>
+		    <br/>
+		    <button class="btn btn-primary" ng-click="saveUtilityAccount()"><span class="glyphicon glyphicon-ok-sign"></span> Save</button>
+		    <button class="btn btn-default" ng-click="editing = false"><span class="glyphicon glyphicon-remove-sign"></span> Cancel</button>
+		 </form>
+		<span ng-hide="editing"> 
+			We have your Mailing Address as <br />
+			{{actualUA.Mailing_Address_Street__c}} <br/>
+			{{actualUA.Mailing_Address_City__c}}, {{actualUA.Mailing_Address_State__c}} {{actualUA.Mailing_Address_Postal_Code__c}}<br/>
+			<button class="btn btn-default" ng-click="editing = true"><span class="glyphicon glyphicon-pencil"></span> Edit</button>
 		</span>
 		<br />
 		<br />

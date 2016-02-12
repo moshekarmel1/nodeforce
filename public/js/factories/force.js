@@ -28,6 +28,12 @@ app.factory('force', ['$http','$window', function($http, $window){
         });
     };
 
+    o.saveUtilityAccount = function(ua){
+        return $http.post('/uas/', ua).then(function(res){
+            return res.data;
+        });
+    };
+
     o.get = function(id) {
         return $http.get('/validate/' + id).then(function(res){
             return res.data;

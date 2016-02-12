@@ -151,6 +151,32 @@ router.get('/uas/:id', function(req, res) {
             res.json(records);
         });
 });
+//get UA based on its ID
+router.post('/uas', function(req, res) {
+    // if auth has not been set, redirect to index
+    if (!req.session.accessToken || !req.session.instanceUrl) { 
+        res.redirect('/'); 
+    }
+    var ua = req.body;
+    // open connection with client's stored OAuth details
+    var conn = new jsforce.Connection({
+        accessToken: req.session.accessToken,
+        instanceUrl: req.session.instanceUrl
+    });
+    conn.sobject("Utility_Account__c").update({
+        Id: ua.Id,
+        Mailing_Address_Street__c: ua.Mailing_Address_Street__c,
+        Mailing_Address_City__c: ua.Mailing_Address_City__c,
+        Mailing_Address_State__c: ua.Mailing_Address_State__c,
+        Mailing_Address_Postal_Code__c: ua.Mailing_Address_Postal_Code__c
+    },function(err, record){
+            if (err) {
+                console.error(err);
+                res.redirect('/');
+            }
+            res.json(record);
+        });
+});
 //Get invoices based on UA ID
 router.get('/inv/:id', function(req, res) {
     // if auth has not been set, redirect to index
