@@ -31,13 +31,13 @@
 	        <tr>
 	          <th>Name</th>
 	          <th>Status</th>
-	          <th>Date</th>
+	          <th>Date <span class="glyphicon glyphicon-chevron-down"></span></th>
 	          <th>Total</th>
 	          <th>Paid</th>
           </tr>
         </thead>
       <tbody>
-        <tr ng-repeat="inv in invoices">
+        <tr ng-repeat="inv in invoices | orderBy: 'c2g__InvoiceDate__c': true">
           <td><a ng-href="">{{inv.Name}}</a></td>
           <td>{{inv.c2g__InvoiceStatus__c}}</td>
           <td>{{inv.c2g__InvoiceDate__c | date}}</td>
