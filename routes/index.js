@@ -91,7 +91,7 @@ router.get('/accounts', function(req, res) {
         res.json(result);
     });
 });
-
+//get acoount and child Uas together
 router.get('/accounts/:id', function(req, res) {
     // if auth has not been set, redirect to index
     if (!req.session.accessToken || !req.session.instanceUrl) { 
@@ -116,7 +116,7 @@ router.get('/accounts/:id', function(req, res) {
         }
         resObj['acc'] = records[0];
         conn.sobject("Utility_Account__c")
-        .select("*, LDC__r.Name")
+        .select("*, LDC__r.Name, Commodity__r.Name")
         .where("Account_Name__c= '" + records[0].Id + "'")
         .execute(function(err, records2){
             if (err) {
@@ -128,7 +128,53 @@ router.get('/accounts/:id', function(req, res) {
         });
     });
 });
-
+//get UA based on its ID
+router.get('/uas/:id', function(req, res) {
+    // if auth has not been set, redirect to index
+    if (!req.session.accessToken || !req.session.instanceUrl) { 
+        res.redirect('/'); 
+    }
+    var id = req.params.id;
+    // open connection with client's stored OAuth details
+    var conn = new jsforce.Connection({
+        accessToken: req.session.accessToken,
+        instanceUrl: req.session.instanceUrl
+    });
+    conn.sobject("Utility_Account__c")
+        .select("*, LDC__r.Name, Commodity__r.Name, Account_Name__r.Name")
+        .where("Id= '" + id + "'")
+        .execute(function(err, records){
+            if (err) {
+                console.error(err);
+                res.redirect('/');
+            }
+            res.json(records);
+        });
+});
+//Get invoices based on UA ID
+router.get('/inv/:id', function(req, res) {
+    // if auth has not been set, redirect to index
+    if (!req.session.accessToken || !req.session.instanceUrl) { 
+        res.redirect('/'); 
+    }
+    var id = req.params.id;
+    // open connection with client's stored OAuth details
+    var conn = new jsforce.Connection({
+        accessToken: req.session.accessToken,
+        instanceUrl: req.session.instanceUrl
+    });
+    conn.sobject("c2g__codaInvoice__c")
+        .select("*, Utility_Account__r.Name")
+        .where("Utility_Account__c= '" + id + "'")
+        .execute(function(err, records){
+            if (err) {
+                console.error(err);
+                res.redirect('/');
+            }
+            res.json(records);
+        });
+});
+//for validating an opportunity
 router.get('/validate/:id', function(req, res) {
     // if auth has not been set, redirect to index
     if (!req.session.accessToken || !req.session.instanceUrl) { 

@@ -1,0 +1,48 @@
+<div class="page-header page-heading">
+  <h1 class="pull-left"><a ng-href="/#/acc/{{actualUA.Account_Name__c}}">{{actualUA.Account_Name__r.Name}}</a></h1>
+  <div class="clearfix"></div>
+</div>
+<div ng-show="error" class="alert alert-warning alert-dismissible row" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <strong>Sorry</strong> {{error.message}}
+</div>
+<br />
+<div ng-show="actualUA" class="row">
+	<div class="col-md-4">
+		<h4>Welcome {{actualUA.Name}}</h4>
+		<h4>
+			{{actualUA.LDC__r.Name}} 
+			<span ng-if="actualUA.Commodity__r.Name == 'Electricity'" class="glyphicon glyphicon-flash"></span>
+          	<span ng-if="actualUA.Commodity__r.Name == 'Gas'" class="glyphicon glyphicon-fire"></span>
+          	#{{actualUA.Utility_Account_Number__c}}
+		</h4>
+		<span>We have your Service Address as <br />
+			{{actualUA.Billing_Address_Street__c}} <br/>
+			{{actualUA.Billing_Address_City__c}}, {{actualUA.Billing_Address_State__c}} {{actualUA.Billing_Address_Postal_Code__c}}<br/>
+			If that is not correct, click <a href="mailto:gbarbera@plymouthenergy.com?subject=Hey Gerry, what's the deal?">here</a>
+		</span>
+		<br />
+		<button ng-click="getInvoices()" class="btn btn-default">View Invoices</button>
+	</div>
+	<div ng-show="invoices" class="col-md-8">
+    <table class="table table-striped">
+        <thead>
+	        <tr>
+	          <th>Name</th>
+	          <th>Status</th>
+	          <th>Date</th>
+	          <th>Total</th>
+          </tr>
+        </thead>
+      <tbody>
+        <tr ng-repeat="inv in invoices">
+          <td><a ng-href="">{{inv.Name}}</a></td>
+          <td>{{inv.c2g__InvoiceStatus__c}}</td>
+          <td>{{inv.c2g__InvoiceDate__c | date}}</td>
+          <td>{{inv.c2g__InvoiceTotal__c | currency}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+

@@ -1,1 +1,1 @@
-var app = angular.module('node-force', ['ui.router', 'angularMoment']);
+var app = angular.module('node-force', ['ui.router', 'angularMoment', 'ngRoute']);

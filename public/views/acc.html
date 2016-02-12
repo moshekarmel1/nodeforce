@@ -7,15 +7,6 @@
   <strong>Sorry</strong> {{error.message}}
 </div>
 <br />
-<div class="row">
-	<div class="col-md-4">
-		<label>Enter your Account Id</label>
-		<input type="text" ng-model="accId" class="form-control" />
-		<br />
-		<button ng-click="getAccount()" class="btn btn-default">Get My Account!</button>
-	</div>
-</div>
-<hr/>
 <div ng-show="acc" class="row">
 	<div class="col-md-4">
 		<h4>Welcome {{acc.Name}}</h4>
@@ -49,14 +40,4 @@
       </tbody>
     </table>
   </div>
-
 </div>
-
-
-
-
-<br/>
-<button ng-hide="true" ng-click="getAccounts()" class="btn btn-default"></button>
-<ul ng-hide="true">
-  <li ng-repeat="ac in accounts">{{ac.Name}}</li>
-</ul>

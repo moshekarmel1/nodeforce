@@ -16,6 +16,18 @@ app.factory('force', ['$http','$window', function($http, $window){
         });
     };
 
+    o.getUtilityAccount = function(id) {
+        return $http.get('/uas/' + id).then(function(res){
+            return res.data;
+        });
+    };
+
+    o.getInvoices = function(id) {
+        return $http.get('/inv/' + id).then(function(res){
+            return res.data;
+        });
+    };
+
     o.get = function(id) {
         return $http.get('/validate/' + id).then(function(res){
             return res.data;
