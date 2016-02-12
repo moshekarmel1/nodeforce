@@ -29,7 +29,7 @@
         </thead>
       <tbody>
         <tr ng-repeat="ua in uas">
-          <td><a ng-href="/#/ua/{{ua.Id}}">{{ua.Name}}</a></td>
+          <td><a ng-href="/#/ua/{{ua.Id}}"><span class="glyphicon glyphicon-circle-arrow-right"></span> {{ua.Name}}</a></td>
           <td>{{ua.Utility_Account_Outstanding_Balance__c | currency}}</td>
           <td>{{ua.Utility_Account_Number__c}}</td>
           <td>{{ua.LDC__r.Name}} 

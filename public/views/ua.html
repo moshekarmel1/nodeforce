@@ -22,7 +22,8 @@
 			If that is not correct, click <a href="mailto:gbarbera@plymouthenergy.com?subject=Hey Gerry, what's the deal?">here</a>
 		</span>
 		<br />
-		<button ng-click="getInvoices()" class="btn btn-default">View Invoices</button>
+		<br />
+		<button ng-click="getInvoices()" class="btn btn-primary"><span class="glyphicon glyphicon-list-alt"></span> View Invoices</button>
 	</div>
 	<div ng-show="invoices" class="col-md-8">
     <table class="table table-striped">
@@ -32,6 +33,7 @@
 	          <th>Status</th>
 	          <th>Date</th>
 	          <th>Total</th>
+	          <th>Paid</th>
           </tr>
         </thead>
       <tbody>
@@ -40,6 +42,10 @@
           <td>{{inv.c2g__InvoiceStatus__c}}</td>
           <td>{{inv.c2g__InvoiceDate__c | date}}</td>
           <td>{{inv.c2g__InvoiceTotal__c | currency}}</td>
+          <td>
+          	<span ng-if="inv.c2g__PaymentStatus__c == 'Paid'" class="glyphicon glyphicon-ok-circle"></span>
+          	<span ng-if="inv.c2g__PaymentStatus__c != 'Paid'" class="glyphicon glyphicon-remove-circle"></span>
+      	  </td>
         </tr>
       </tbody>
     </table>

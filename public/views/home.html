@@ -12,46 +12,9 @@
 		<label>Enter your Account Id</label>
 		<input type="text" ng-model="accId" class="form-control" />
 		<br />
-		<button ng-click="getAccount()" class="btn btn-default">Get My Account!</button>
+		<button ng-click="getAccount()" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Get My Account!</button>
 	</div>
 </div>
-<hr/>
-<div ng-show="acc" class="row">
-	<div class="col-md-4">
-		<h4>Welcome {{acc.Name}}</h4>
-		<span>How are things at <br />
-			{{acc.BillingAddress.street}} <br/>
-			{{acc.BillingAddress.city}}, {{acc.BillingAddress.state}} {{acc.BillingAddress.postalCode}}?
-		</span>
-		<h4 ng-if="acc.totalBal > 0">I hate to break it to you,<br/> but you owe us {{acc.totalBal | currency}}.</h4>
-		<h4 ng-if="acc.totalBal == 0">Great news, you don't owe us anything.</h4>
-	</div>
-	<div class="col-md-8">
-    <table class="table table-striped">
-        <thead>
-	        <tr>
-	          <th>Name</th>
-	          <th>Balance</th>
-	          <th>Acc Number</th>
-	          <th>Utility</th>
-          </tr>
-        </thead>
-      <tbody>
-        <tr ng-repeat="ua in uas">
-          <td><a ng-href="/#/ua/{{ua.Id}}">{{ua.Name}}</a></td>
-          <td>{{ua.Utility_Account_Outstanding_Balance__c | currency}}</td>
-          <td>{{ua.Utility_Account_Number__c}}</td>
-          <td>{{ua.LDC__r.Name}} 
-          	<span ng-if="ua.Commodity__r.Name == 'Electricity'" class="glyphicon glyphicon-flash"></span>
-          	<span ng-if="ua.Commodity__r.Name == 'Gas'" class="glyphicon glyphicon-fire"></span>
-      	  </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-</div>
-
 
 
 
