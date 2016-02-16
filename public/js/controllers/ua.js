@@ -3,8 +3,10 @@ app.controller('UACtrl', ['$scope', 'force', 'actualUA', function($scope, force,
 	if(actualUA.length > 0){
     	$scope.actualUA = actualUA[0];
 	}else{
-		$scope.error = {
-			message: "We couldn't find a Utility Account with this Id..."
+		$scope.message = {
+			title: "Sorry",
+			message: "We couldn't find a Utility Account with this Id...",
+			class: "danger"
 		};
 	}
 
@@ -18,9 +20,16 @@ app.controller('UACtrl', ['$scope', 'force', 'actualUA', function($scope, force,
 		force.saveUtilityAccount($scope.actualUA).then(function(res){
 			if(res.success){
 				$scope.editing = false;
+				$scope.message = {
+					title: "Success",
+					message: "Your mailing address has been updated.",
+					class: "success"
+				};
 			}else{
-				$scope.error = {
-					message: "Something went wrong during the update..."
+				$scope.message = {
+					title: "Sorry",
+					message: "Something went wrong during the update...",
+					class: "danger"
 				};
 			}
 		});

@@ -2,9 +2,9 @@
   <h1 class="pull-left"><a ng-href="/#/acc/{{actualUA.Account_Name__c}}">{{actualUA.Account_Name__r.Name}}</a></h1>
   <div class="clearfix"></div>
 </div>
-<div ng-show="error" class="alert alert-warning alert-dismissible row" role="alert">
+<div ng-show="message" class="alert alert-{{message.class}} alert-dismissible row" role="alert">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-  <strong>Sorry</strong> {{error.message}}
+  <strong>{{message.title}}</strong> {{message.message}}
 </div>
 <br />
 <div ng-show="actualUA" class="row">
@@ -30,7 +30,7 @@
 		    <button class="btn btn-default" ng-click="editing = false"><span class="glyphicon glyphicon-remove-sign"></span> Cancel</button>
 		 </form>
 		<span ng-hide="editing"> 
-			We have your Mailing Address as <br />
+			We have your Mailing Address as :<br />
 			{{actualUA.Mailing_Address_Street__c}} <br/>
 			{{actualUA.Mailing_Address_City__c}}, {{actualUA.Mailing_Address_State__c}} {{actualUA.Mailing_Address_Postal_Code__c}}<br/>
 			<button class="btn btn-default" ng-click="editing = true"><span class="glyphicon glyphicon-pencil"></span> Edit</button>
